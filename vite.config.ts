@@ -17,6 +17,17 @@ export default defineConfig({
     open:true,
     //主机名
     host:'localhost',
+    //配置代理
+    proxy:{
+      "/api":{
+        // 目标地址
+        target:"http://localhost:7777",
+        //开启跨域
+        changeOrigin:true,
+        //重写路径:去掉路径中开头的/api
+        rewrite:(path)=>path.replace(/^\/api/,'')
+      }
+    }
   },
   resolve: {
     alias: {
