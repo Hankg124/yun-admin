@@ -1,5 +1,5 @@
 <template>
-  <el-menu router default-active="2">
+  <el-menu router :default-active="$route.path" :collapse="!stores.isCollapse">
     <el-menu-item index="/home">
       <svgIcon icon="House" size="18" />
       <span>首页</span>
@@ -40,7 +40,8 @@
   </el-menu>
 </template>
 <script setup lang='ts'>
-
+import {useLayoutConfigStore} from "@/stores/layoutConfig.ts"
+const stores=useLayoutConfigStore();
 
 </script>
 <style lang='scss' scoped></style>

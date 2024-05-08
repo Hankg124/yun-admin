@@ -31,6 +31,7 @@ const router = createRouter({
             title:"系统管理",
             icon:"Menu"
           },
+          redirect:"/system/menu",
           children:[
             {
               path: '/system/menu',
@@ -74,6 +75,7 @@ const router = createRouter({
             title:"商品管理",
             icon:"Menu"
           },
+          redirect:"/goods/list",
           children:[
             {
               path: '/goods/list',
