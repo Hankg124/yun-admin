@@ -29,13 +29,12 @@ const route = useRoute();
 const router = useRouter();
 
 
-import { useLayoutConfigStore } from "@/stores/layoutConfig.ts"
+import { useLayoutConfigStore } from "@/stores/layoutConfig"
 import { onMounted, ref } from 'vue';
 const stores = useLayoutConfigStore();
 
 const isCollapseFn = () => {
     stores.isCollapse = !stores.isCollapse;
-    console.log(stores.isCollapse);
 }
 
 //创建一个变量，保存面包屑导航的数据
@@ -49,11 +48,8 @@ onBeforeRouteUpdate((to, from) => {
 
 //定义一个方法，使用这个方法获取路由跳转的信息
 const getBreadcrumb = (to: RouteLocationNormalized) => {
-    console.log("to", to);
     const matched = to.matched.filter((item) => item.meta && item.meta.title && item.meta.icon)
-    // console.log("matched",matched);
     breadcrumbList.value = matched;
-    console.log(breadcrumbList.value);
 }
 
 onMounted(() => {
@@ -62,10 +58,7 @@ onMounted(() => {
 
 
 const breadcrumbFn = (_route:RouteRecordNormalized) => {
-    console.log(_route);
-
     const {path,redirect}=_route;
-
     if (redirect) router.push(redirect as string);
                // router.push(<string>redirect);
     else router.push(path);

@@ -26,7 +26,8 @@
 
 .el-container {
     .el-aside {
-        background-color: var(--jy-bg-menuMainColor) !important;
+        // background-color: var(--jy-bg-menuMainColor) !important;
+        border-right: 1px solid var(--jy-border-color-light) !important;
         .aside-logo {
             height: 50px;
             display: flex;
@@ -57,8 +58,9 @@
         transition: width 0.3s ease;
     }
     .el-header{
+        border-bottom: 1px solid var(--jy-border-color-light) !important;
         color: var(--jy-color-black) !important;
-        background-color: var(--jy-bg-menuMainColor) !important;
+        // background-color: var(--jy-bg-menuMainColor) !important;
         height: 50px;
         display: flex;
         align-items: center;

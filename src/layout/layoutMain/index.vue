@@ -1,5 +1,6 @@
 <template>
-<el-main style="background-color: green">
+    <!-- style="background-color: green" -->
+<el-main >
 <RouterView></RouterView>
 </el-main>
 </template>

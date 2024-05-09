@@ -5,7 +5,7 @@
     </el-aside>
 </template>
 <script setup lang='ts'>
-import {useLayoutConfigStore} from "@/stores/layoutConfig.ts"
+import { useLayoutConfigStore } from "@/stores/layoutConfig";
 const stores=useLayoutConfigStore();
 import { defineAsyncComponent } from "vue";
 
