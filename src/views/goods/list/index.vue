@@ -1,5 +1,5 @@
 <template>
-list
+<div>list</div>
 </template>
 <script setup lang='ts'>
 

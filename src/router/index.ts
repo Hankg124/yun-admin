@@ -24,7 +24,7 @@ const router = createRouter({
             //菜单图标
             icon:"Menu",
             //页面是否需要缓存  false为不缓存  true为缓存
-            cache:false,
+            cache:true,
             //控制当前是否显示为菜单  false为显示  true为不显示
             hidden:false
           }
@@ -45,7 +45,7 @@ const router = createRouter({
               meta: {
                 title:"菜单管理",
                 icon:"Menu",
-                cache:false,
+                cache:true,
                 hidden:false
               }
             },
@@ -111,7 +111,7 @@ const router = createRouter({
           name: 'Mengxuegu',
           component: () => import('@/views/link/index.vue'),
           meta: {
-            title:"梦学谷官网",
+            title:"积云官网",
             icon:"Menu",
             cache:false,
             hidden:false

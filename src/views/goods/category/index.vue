@@ -1,5 +1,5 @@
 <template>
-category
+<div>category</div>
 </template>
 <script setup lang='ts'>
 

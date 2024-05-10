@@ -1,5 +1,5 @@
 <template>
-user
+<div>user</div>
 </template>
 <script setup lang='ts'>
 

@@ -29,7 +29,7 @@
       <el-icon>
         <setting />
       </el-icon>
-      <span>梦学谷官网</span>
+      <span>积云官网</span>
     </el-menu-item>
     <el-menu-item index="/401">
       <el-icon>

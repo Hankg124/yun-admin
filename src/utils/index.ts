@@ -10,7 +10,7 @@ import axios,{
 const service:AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_API,
     // baseURL:"https://mock.mengxuegu.com/mock/66384d15cab9671f88bd2ff7/api",
-    timeout: 5000
+    timeout: 10000
 })
 // 请求拦截器
 service.interceptors.request.use(
@@ -33,7 +33,7 @@ service.interceptors.response.use(
 
 type DataType<T=any>={
     code:number,
-    msg:string,
+    message:string,
     data:T
 }
 
@@ -47,7 +47,7 @@ const request = <T=any>(
     return service.request<T,DataType<T>>({
         url,
         method,
-        [method==="GET"?"params":"data"]:data,
+        [method === "GET" ? "params" : "data"]: data,
         ...options
     })
 }
@@ -58,9 +58,9 @@ export const get=<T=any>(url:string,data:Object)=>{
 }
 
 //POST请求
-export const post=<T=any>(url:string,data:Object)=>{
-    request<T>(url,"POST",data);
-}
+export const post = <T = any>(url: string, data: Object) => {
+    request<T>(url, "POST", data);
+  };
 
 //PUT请求
 export const put=<T=any>(url:string,data:Object)=>{
@@ -72,4 +72,5 @@ export const del=<T=any>(url:string,data:Object)=>{
     request<T>(url,"DELETE",data);
 }
 
-export default service;
+export default request;
+

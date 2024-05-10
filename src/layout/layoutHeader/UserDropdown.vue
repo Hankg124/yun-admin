@@ -10,7 +10,7 @@
         </div>
         <!-- 下拉菜单 -->
         <div>
-            <el-dropdown @command="handleCommand">
+            <el-dropdown>
                 <span class="el-dropdown-link">
                     <el-avatar :size="30" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
                     <span>乔芳</span>
@@ -18,10 +18,10 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item command="首页">首页</el-dropdown-item>
-                        <el-dropdown-item command="404">404</el-dropdown-item>
-                        <el-dropdown-item command="401">401</el-dropdown-item>
-                        <el-dropdown-item command="退出系统" divided>退出系统</el-dropdown-item>
+                        <el-dropdown-item @click="$router.push('/home')">首页</el-dropdown-item>
+                        <el-dropdown-item @click="$router.push('/404')">404</el-dropdown-item>
+                        <el-dropdown-item @click="$router.push('/401')">401</el-dropdown-item>
+                        <el-dropdown-item @click="$router.push('/login')" divided>退出系统</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -48,18 +48,6 @@ const isDark = useDark({
     initialValue:'dark'
 })
 console.log(isDark);
-
-
-
-
-
-
-
-
-//点击下拉菜单时触发
-const handleCommand = (command: string | number | object) => {
-    console.log('command', command);
-}
 
 </script>
 <style lang='scss' scoped></style>
