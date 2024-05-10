@@ -3,17 +3,17 @@
         <div class="login-wrap">
             <img class="login-img" src="http://vue3.mengxuegu.com/assets/login-logo-6c42311e.png" alt="">
             <div class="login-title">账号登录</div>
-            <el-form ref="ruleFormRef" :model="state.loginForm" :rules="rules">
+            <el-form ref="ruleFormRef" :model="states.loginForm" :rules="rules">
                 <el-form-item prop="username">
-                    <el-input prefix-icon="User" v-model="state.loginForm.username" type="text" placeholder="请输入帐号/手机号
+                    <el-input prefix-icon="User" v-model="states.loginForm.username" type="text" placeholder="请输入帐号/手机号
 " />
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input prefix-icon="Unlock" placeholder="请输入密码" show-password
-                        v-model="state.loginForm.password" type="password" />
+                        v-model="states.loginForm.password" type="password" />
                 </el-form-item>
                 <el-form-item>
-                    <el-checkbox v-model="state.isRemember">记住密码</el-checkbox>
+                    <el-checkbox v-model="states.isRemember">记住密码</el-checkbox>
                     <el-button type="primary" @click="handleSubmit">登录</el-button>
                 </el-form-item>
             </el-form>
@@ -28,12 +28,14 @@ import {useRouter} from "vue-router"
 const router=useRouter();
 import {Local} from "@/utils/storage"
 import {loginApi} from "@/api/auth"
+import {useAuthStore} from "@/stores/auth"
+const state=useAuthStore();
 
 // 表单实例
 const ruleFormRef = ref<FormInstance>();
 
 // 表单数据
-const state = reactive<StateType>({
+const states = reactive<StateType>({
     isRemember: Local.get('isRemember')||false,
     loginForm: {
         username:Local.get('username')||'',
@@ -62,7 +64,7 @@ const validatePassword = (rule: any, value: string, callback: Function) => {
 };
 
 //表单校验
-const rules = reactive<FormRules<typeof state.loginForm>>({
+const rules = reactive<FormRules<typeof states.loginForm>>({
     username: [
         { required: true, message: "请输入有效帐号/手机号", trigger: "blur" },
         { validator: validateUsername, trigger: "blur" },
@@ -110,22 +112,26 @@ const handleSubmit = () => {
   ruleFormRef.value!.validate(async (valid: boolean) => {
     if (valid) {
       // 存储账号与密码
-      if (state.isRemember) {
-        Local.set("username", state.loginForm.username);
-        Local.set("password", state.loginForm.password);
-        Local.set("isRemember", state.isRemember);
+      if (states.isRemember) {
+        Local.set("username", states.loginForm.username);
+        Local.set("password", states.loginForm.password);
+        Local.set("isRemember", states.isRemember);
       } else {
         Local.remove("username");
         Local.remove("password");
         Local.remove("isRemember");
       }
 
+      //存储token
+      
+
       // 调用登录接口
-        const res = await loginApi(state.loginForm);
+        const res = await loginApi(states.loginForm);
         console.log(res);
 
 
       // 存储token
+      state.setToken(res.data.data.access_token)
 
       // 跳转到主页
       router.push("/");
