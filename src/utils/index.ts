@@ -24,7 +24,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
     (res:AxiosResponse)=>{
-        return res;
+        return res.data;
     },
     (error:AxiosError)=>{
         return Promise.reject(error);
