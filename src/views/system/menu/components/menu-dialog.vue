@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { addMenuApi, selectMenuApi, editMenuApi } from '@/api/system/menu';
 import type { MenuParamsType, ResponseSelectMenuType } from '@/api/types/menuType';
-import { ElNotification, type FormInstance} from 'element-plus';
+import { ElNotification, type FormInstance } from 'element-plus';
 import _ from 'lodash';
 import { ref, watch, watchEffect } from 'vue';
 
@@ -29,18 +29,17 @@ const menuForm = ref<MenuParamsType>({
     "parentId": "",
     "code": ''
 })
-const props = ref();
+const props = ref({
+    label: 'title',
+    value: 'id',
+    children: 'children',
+    checkStrictly: true
+});
 const options = ref<ResponseSelectMenuType>();
 //获取下拉菜单数据
 const selectFn = async () => {
     try {
         const res = await selectMenuApi();
-        props.value = {
-            label: 'title',
-            value: 'id',
-            children: 'children',
-            checkStrictly: true
-        }
         options.value = res.data
     } catch (err) {
         console.log(err);
@@ -51,7 +50,7 @@ const selectFn = async () => {
 const handleClose = () => {
     console.log("!11")
     menuRef.value?.resetFields();
-    console.log("aaa",menuRef.value)
+    console.log("aaa", menuRef.value)
     visible.value = false;
     console.log(visible.value);
 }
@@ -61,38 +60,8 @@ const emits = defineEmits(['refresh']);
 const confirm = () => {
     menuRef.value?.validate(async (valid: boolean) => {
         if (valid) {
-            //添加
-            // if (dialogType.value === "add") {
-            //     try {
-            //         await addMenuApi(menuForm.value);
-            //         ElNotification.success({
-            //             title: '操作成功',
-            //             offset: 100,
-            //         })
-            //         handleClose();
-            //         emits("refresh");
-            //     } catch (err) {
-            //         console.log(err);
-            //     }
-            // } 
-            // //编辑
-            // else {
-            //     try{
-            //         const res = await editMenuApi(menuForm.value);
-            //         console.log(res);
-            //         ElNotification.success({
-            //             title: '操作成功',
-            //             offset: 100,
-            //         })
-
-            //         handleClose();
-            //         emits("refresh");
-            //     }catch(err){
-            //         console.log(err);
-            //     }
-            // }
-
             try {
+                //添加
                 if (dialogType.value === "add") {
                     await addMenuApi(menuForm.value);
                     ElNotification.success({
@@ -100,6 +69,7 @@ const confirm = () => {
                         offset: 100,
                     })
                 } else {
+                    //编辑
                     const res = await editMenuApi(menuForm.value);
                     console.log(res);
                     ElNotification.success({
@@ -107,6 +77,7 @@ const confirm = () => {
                         offset: 100,
                     })
                 }
+                //关闭抽屉并清空内容
                 handleClose();
                 emits("refresh");
             } catch (err) {
@@ -125,6 +96,7 @@ const openDrawer = (type: string, title: string, data = {} as any) => {
     dialogType.value = type;
     dialogData.value = data;
     console.log(type, title, data);
+    menuForm.value.parentId=data.parentId;
     if (type === 'edit') {
         menuForm.value = _.cloneDeep(data);
     }
@@ -135,12 +107,12 @@ defineExpose({
     openDrawer
 })
 
-watch(()=>visible,(newVal)=>{ 
-    console.log(newVal);
-    if(!newVal){
-        menuRef.value?.resetFields();
-    }
-})
+// watch(() => visible, (newVal) => {
+//     console.log(newVal);
+//     if (!newVal) {
+//         menuRef.value?.resetFields();
+//     }
+// })
 
 // watchEffect(() => {
 //     if (visible.value == false) {

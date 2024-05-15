@@ -4,9 +4,9 @@
             <span>菜单名称：</span>
             <el-input v-model="searchFormKey.keyword" style="width: 240px" placeholder="请输入菜单名称" />
             <el-button type="primary" icon="Search" @click="getMenuList">查询</el-button>
-            <el-button type="success" icon="Plus" @click="handleAdd">新增菜单</el-button>
+            <el-button type="success" icon="Plus" @click="handleAdd('')">新增菜单</el-button>
         </div>
-        <el-table :data="menuList" style="width: 100%; margin-bottom: 20px" row-key="id" border default-expand-all>
+        <el-table :data="menuList" style="width: 100%; margin-bottom: 20px;height: 500px;" row-key="id" border >
             <el-table-column label="菜单名称">
                 <template #default="{ row }">
                     <svg-icon v-if="row.meta.icon" :icon="filterMenuIcon(row.meta.icon)"></svg-icon>
@@ -24,7 +24,7 @@
             <el-table-column prop="sort" label="排序" />
             <el-table-column class="menu-table-btn" prop="address" label="操作" width="220">
                 <template #default="scope">
-                    <el-button link type="primary" size="small" icon="Plus">新增下级</el-button>
+                    <el-button link type="primary" size="small" icon="Plus" @click="handleAdd(scope.row.id)">新增下级</el-button>
                     <el-button link type="warning" size="small" icon="edit" @click="handleEdit(scope.row)">修改</el-button>
                     <el-popconfirm width="auto" confirm-button-text="确定" cancel-button-text="取消" :title="`确定永久删除【${scope.row.meta.title}】吗?`" @confirm="handleDelete(scope.row)">
                         <template #reference>
@@ -93,8 +93,8 @@ const handleDelete = async (row: ResponseMenuListType) => {
 //实例化
 const dialogRef=ref();
 //点击新增菜单
-const handleAdd=()=>{
-    dialogRef.value.openDrawer("add","新增菜单");
+const handleAdd=(id:string)=>{
+    dialogRef.value.openDrawer("add","新增菜单",{parentId:id});
 }
 //点击修改
 const handleEdit=(row:ResponseMenuListType)=>{
