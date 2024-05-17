@@ -47,7 +47,6 @@ const isDark = useDark({
     valueLight: '',
     initialValue:'dark'
 })
-console.log(isDark);
 
 </script>
 <style lang='scss' scoped></style>

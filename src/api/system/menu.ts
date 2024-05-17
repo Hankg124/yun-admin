@@ -2,7 +2,7 @@ import request from "@/utils/index";
 import type { ResponseMenuListType, SearchParams,ResponseSelectMenuType, MenuParamsType, MenuEditType } from "../types/menuType";
 
 // 获取菜单列表
-export const menuListApi =(searchParams:SearchParams)=>{
+export const menuListApi =(searchParams?:SearchParams)=>{
     return request<ResponseMenuListType[]>("/system/menu/search","POST",searchParams); 
 }
 

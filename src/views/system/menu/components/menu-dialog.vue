@@ -3,6 +3,7 @@ import { addMenuApi, selectMenuApi, editMenuApi } from '@/api/system/menu';
 import type { MenuParamsType, ResponseSelectMenuType } from '@/api/types/menuType';
 import { ElNotification, type FormInstance } from 'element-plus';
 import _ from 'lodash';
+import { nextTick } from 'process';
 import { ref, watch, watchEffect } from 'vue';
 
 const menuRef = ref<FormInstance>()
@@ -48,11 +49,8 @@ const selectFn = async () => {
 
 //取消
 const handleClose = () => {
-    console.log("!11")
     menuRef.value?.resetFields();
-    console.log("aaa", menuRef.value)
     visible.value = false;
-    console.log(visible.value);
 }
 
 //确定
@@ -71,7 +69,6 @@ const confirm = () => {
                 } else {
                     //编辑
                     const res = await editMenuApi(menuForm.value);
-                    console.log(res);
                     ElNotification.success({
                         title: '操作成功',
                         offset: 100,
@@ -95,10 +92,11 @@ const openDrawer = (type: string, title: string, data = {} as any) => {
     dialogTitle.value = title;
     dialogType.value = type;
     dialogData.value = data;
-    console.log(type, title, data);
     menuForm.value.parentId=data.parentId;
     if (type === 'edit') {
-        menuForm.value = _.cloneDeep(data);
+        nextTick(()=>{
+            menuForm.value = _.cloneDeep(data);
+        })
     }
 }
 

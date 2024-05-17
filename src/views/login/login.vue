@@ -66,12 +66,10 @@ const validatePassword = (rule: any, value: string, callback: Function) => {
 //表单校验
 const rules = reactive<FormRules<typeof states.loginForm>>({
   username: [
-    { required: true, message: "请输入有效帐号/手机号", trigger: "blur" },
-    { validator: validateUsername, trigger: "blur" },
+    { required: true,validator: validateUsername, message: "请输入有效帐号/手机号", trigger: "blur" }
   ],
   password: [
-    { required: true, message: '请输入有效密码', trigger: 'blur' },
-    { validator: validatePassword, trigger: 'blur' }
+    { required: true, validator: validatePassword, message: '请输入有效密码', trigger: 'blur' }
   ]
 })
 
@@ -109,30 +107,28 @@ const rules = reactive<FormRules<typeof states.loginForm>>({
 // }
 // 登录方法
 const handleSubmit = () => {
-  ruleFormRef.value!.validate((valid: boolean) => {
+  ruleFormRef.value!.validate(async(valid: boolean) => {
     if (valid) {
 
-      //存储账号与密码
-      state.stRememberPwd(states);
-      state.userLogin(states).then(res => {
-        // 跳转到主页
-        console.log("res",res);
-        
-        router.push("/");
-      });
-      // if (states.isRemember) {
-      //       Local.set("username", states.loginForm.username);
-      //       Local.set("password", states.loginForm.password);
-      //       Local.set("isRemember", states.isRemember);
-      //   } else {
-      //       Local.remove("username");
-      //       Local.remove("password");
-      //       Local.remove("isRemember");
-      //   }
-      // const res = await loginApi(states.loginForm);
-      // console.log(res);
-      // // 存储token
-      // state.setToken(res.data.data.access_token)
+      // //存储账号与密码
+      // state.stRememberPwd(states);
+      // state.userLogin(states).then(res => {
+      //   router.push("/");
+      // });
+      if (states.isRemember) {
+            Local.set("username", states.loginForm.username);
+            Local.set("password", states.loginForm.password);
+            Local.set("isRemember", states.isRemember);
+        } else {
+            Local.remove("username");
+            Local.remove("password");
+            Local.remove("isRemember");
+        }
+      const res = await loginApi(states.loginForm);
+      console.log(res);
+      // 存储token
+      state.setToken(res.data.access_token);
+      router.push("/");
 
 
     }

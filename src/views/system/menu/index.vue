@@ -77,7 +77,6 @@ getMenuList()
 
 //删除菜单
 const handleDelete = async (row: ResponseMenuListType) => {
-    console.log(row);
     try{
         await delMenuApi(row.id);
         ElNotification.success({

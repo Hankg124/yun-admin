@@ -15,6 +15,7 @@ export type paramsRoleType = {
      */
     size: number;
 }
+
 export type paramsRoleRecordType = {
     records: Record[];
     total: number;
@@ -28,4 +29,27 @@ export type Record = {
     roleName: string;
     status: boolean;
     updateTime: string;
+}
+
+//添加角色数据类型
+export type addRoleType = {
+    createTime?: string;
+    id?: number;
+    updateTime?: string;
+    /**
+     * 备注
+     */
+    remark: string;
+    /**
+     * 角色编码
+     */
+    roleCode: string;
+    /**
+     * 角色名称
+     */
+    roleName: string;
+    /**
+     * 角色状态
+     */
+    status: boolean;
 }
