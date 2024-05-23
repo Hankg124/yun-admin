@@ -48,7 +48,7 @@ onBeforeRouteUpdate((to, from) => {
 
 //定义一个方法，使用这个方法获取路由跳转的信息
 const getBreadcrumb = (to: RouteLocationNormalized) => {
-    const matched = to.matched.filter((item) => item.meta && item.meta.title && item.meta.icon)
+    const matched = to.matched.filter((item) => item.meta && item.meta.title && item.meta.icon);
     breadcrumbList.value = matched;
 }
 

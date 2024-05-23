@@ -9,8 +9,8 @@ import { useLayoutConfigStore } from "@/stores/layoutConfig";
 const stores=useLayoutConfigStore();
 import { defineAsyncComponent } from "vue";
 
-const Logo = defineAsyncComponent(() => import("./Logo.vue"))
-const Menu = defineAsyncComponent(() => import("./Menu.vue"))
+const Logo = defineAsyncComponent(() => import("./logo.vue"))
+const Menu = defineAsyncComponent(() => import("./menu.vue"))
 
 </script>
 <style lang='scss' scoped></style>

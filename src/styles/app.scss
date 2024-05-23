@@ -23,6 +23,11 @@
     --jy-border-color-light: var(--jy-border-color) !important;
 }
 
+.container-padding{
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--jy-border-color);
+}
 
 .el-container {
     .el-aside {
